@@ -7,13 +7,19 @@
  *  Introduction to Algorithms.
  */
 
+// TODO: comment all files with descriptions, etc.
+// TODO: test code against cases provided in data dir
+// FIXME: IDedLinkedList() has private access in IDedLinkedList
+
 /*
  * Name:    Enkang Yuan
  * Sect.:   CS 3345.503
- * Desc.:    
+ * Desc.:   This is the driver class for this project. It reads the input file and performs the operations on the linked list.   
  */
 
 // import statements
+import static java.lang.System.out;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.*;
@@ -62,17 +68,18 @@ public class P2Driver {
                         id = in.nextInt();
                         price = in.nextInt();
                         description.clear();
+                        List<Integer> localDescription = new LinkedList<>();
                         while (true) {
                             int val = in.nextInt();
                             if (val == 0) {
                                 break;
                             } else {
-                                description.add(val);
+                                localDescription.add(val);
                             }
                         }
 
-                        MyItem new_item = new MyItem(id, price, description);
-                        result = LL.inserAtFront(new_item);
+                        MyItem new_item = new MyItem(id, price, localDescription);
+                        result = LL.insertAtFront(new_item);
                         //result = Insert the item into the linkedlist and get true or false
                         out.println(result ? "True" : "False");
                 } catch (Exception e) {
@@ -130,7 +137,7 @@ public class P2Driver {
             out.close();
 
         } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
+            out.println("Exception: " + e.getMessage());
         }
 
     }

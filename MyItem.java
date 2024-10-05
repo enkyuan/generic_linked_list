@@ -1,5 +1,5 @@
 /*
- *  Desc.:    
+ *  Desc.:   Item class that implements the IDedObject interface. It has two constructors, one that takes in an itemID, itemPrice, and itemDescription and another that takes in only itemPrice and itemDescription. It has two methods, getID() and printID().   
  */
 
 // import statements
@@ -30,12 +30,12 @@ public class MyItem implements IDedObject {
     @Override
     public String printID() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Item ID: ").append(itemID);
-        sb.append(", Price: $").append(itemPrice);
-        sb.append(", Description: ");
+        sb.append(" ").append(itemID);
+        sb.append(" ").append(itemPrice);
+        sb.append(" ");
          
         for (int desc : itemDescription) {
-            sb.append(desc).append(", ");
+            sb.append(desc).append(" ");
         }
         return sb.toString().trim();
     }

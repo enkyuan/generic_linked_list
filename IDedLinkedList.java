@@ -1,11 +1,11 @@
 /*
- *  Desc.:    
+ *  Desc.:  Linked List class that stores objects of generic type T that implement the IDedObject interface and handles insertions, deletion, queries, etc.
  */
 
 public class IDedLinkedList <T extends IDedObject> {
-    private class Node {
+    class Node<T> {
         T data;
-        Node next;
+        Node<T> next;
 
         public Node(T data) {
             this.data = data;
@@ -13,20 +13,18 @@ public class IDedLinkedList <T extends IDedObject> {
         }
     }
 
-    private Node head;
+    private Node<T> head;
 
-    private IDedLinkedList() {}
-
-    public static <T extends IDedObject> IDedLinkedList<T> create() {
-        return new IDedLinkedList<>();
+    public IDedLinkedList() {
+       this.head = null; 
     }
-
+    
     public IDedLinkedList(Node head) {
         this.head = head;
     }
 
     private boolean isEmpty() {
-        return head == null;
+       return this.head == null; 
     }
 
     public void makeEmpty() {
@@ -34,7 +32,7 @@ public class IDedLinkedList <T extends IDedObject> {
     }
 
     public T findID(int ID) {
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             if (((IDedObject) current.data).getID() == ID) {
                 return current.data;
@@ -44,16 +42,16 @@ public class IDedLinkedList <T extends IDedObject> {
         return null;
     } 
 
-    public boolean insertAtFront(T x) {
-        Node newNode = new Node(x);
-        if (head == null) {
-            head = newNode;
-            return true; 
-        } else {
+   public boolean insertAtFront(T x) {
+        Node<T> newNode = new Node<> (x);
+
+        if (head == null || !exists(((IDedObject) newNode.data).getID())) {
             newNode.next = head;
             head = newNode;
-            return false;
+
+            return true;    
         }
+        return false; 
     } 
 
     public T deleteFromFront() {
@@ -66,8 +64,9 @@ public class IDedLinkedList <T extends IDedObject> {
         }
     }
 
-    private boolean checkExistence(int ID) {
-        Node current = head;
+    public boolean exists(int ID) {
+        Node<T> current = head;
+
         while (current != null) {
             if (((IDedObject) current.data).getID() == ID) {
                 return true;             
@@ -81,7 +80,7 @@ public class IDedLinkedList <T extends IDedObject> {
         if (isEmpty()) {
             return null;
         }
-        if (!checkExistence(ID)) {
+        if (!exists(ID)) {
             return null;
         } else if (head.data == null) {
             head = head.next;
@@ -92,7 +91,7 @@ public class IDedLinkedList <T extends IDedObject> {
             return result;
         }
 
-        Node current = head;
+        Node<T> current = head;
 
         while (current.next != null) {
             if (((IDedObject) current.next.data).getID() == ID) {
